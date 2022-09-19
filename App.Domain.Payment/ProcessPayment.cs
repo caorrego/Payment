@@ -17,7 +17,15 @@ namespace App.Domain.Payment
         {
             try
             {
-                generarFacturacion(request, urlFacturacion, token);
+                if(request.cardNumber.Length == 16)
+                {
+                    generarFacturacion(request, urlFacturacion, token);
+                }
+                else
+                {
+                    return construirRespuestaPayment(null, "El numero de tarjeta debe tener 16 digitos", "97", null, "No enviado", 0);
+                }
+                
 
                 if (responseFacturacion.ResponseCode == "00")
                 {
